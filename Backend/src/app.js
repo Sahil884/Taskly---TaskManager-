@@ -6,7 +6,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:5173", // dev
-  "https://taskly-task-manager-icrv-9yvprhk97.vercel.app", // production frontend
+  "https://taskly-task-manager-icrv.vercel.app", // production frontend
 ];
 
 app.use(
