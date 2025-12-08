@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const API_BASE_URL = import.meta.env.Backend_URL;
+const API_BASE_URL = import.meta.env.VITE_Backend_URL;
 
 const CreateTask = () => {
   const user = useSelector((state) => state.auth.user);

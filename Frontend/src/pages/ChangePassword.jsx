@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import { redirect, replace, useNavigate } from "react-router-dom";
 
-const API_BASE_URL = import.meta.env.Backend_URL;
+const API_BASE_URL = import.meta.env.VITE_Backend_URL;
 
 const ChangePassword = () => {
   const navigate = useNavigate();

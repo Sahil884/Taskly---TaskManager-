@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import axios from "axios";
 
-const API_BASE_URL = import.meta.env.Backend_URL;
+const API_BASE_URL = import.meta.env.VITE_Backend_URL;
 
 const RootLayout = () => {
   const authenticated = useSelector((state) => state.auth.isAuthenticated);

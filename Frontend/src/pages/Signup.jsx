@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authAction } from "../store/auth";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 
-const API_BASE_URL = import.meta.env.Backend_URL;
+const API_BASE_URL = import.meta.env.VITE_Backend_URL;
 
 const Signup = () => {
   const dispatch = useDispatch();

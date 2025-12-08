@@ -7,7 +7,7 @@ import AccountDropdown from "./Account_dropdown";
 import { getInitials } from "../utils";
 import { authAction } from "../store/auth";
 
-const API_BASE_URL = import.meta.env.Backend_URL;
+const API_BASE_URL = import.meta.env.VITE_Backend_URL;
 
 const Navbar = () => {
   const navigate = useNavigate();

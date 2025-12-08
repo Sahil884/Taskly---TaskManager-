@@ -5,7 +5,7 @@ import { authAction } from "../store/auth";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const API_BASE_URL = import.meta.env.Backend_URL;
+const API_BASE_URL = import.meta.env.VITE_Backend_URL;
 
 const EditProfile = () => {
   const user = useSelector((state) => state.auth.user);

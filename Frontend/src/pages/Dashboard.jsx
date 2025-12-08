@@ -8,7 +8,7 @@ import { ApiError } from "../../../Backend/src/utils/ApiError";
 import TaskCard from "../components/TaskCard";
 import Edit_Task from "./Edit_Task";
 
-const API_BASE_URL = import.meta.env.Backend_URL;
+const API_BASE_URL = import.meta.env.VITE_Backend_URL;
 
 const Dashboard = () => {
   const currentUser = useSelector((state) => state.auth.user);
