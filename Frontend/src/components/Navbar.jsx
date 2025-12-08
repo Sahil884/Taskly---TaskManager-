@@ -7,6 +7,8 @@ import AccountDropdown from "./Account_dropdown";
 import { getInitials } from "../utils";
 import { authAction } from "../store/auth";
 
+const API_BASE_URL = import.meta.env.Backend_URL;
+
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -24,7 +26,7 @@ const Navbar = () => {
   const logoutUser = async () => {
     try {
       const response = await axios.post(
-        "/api/v1/users/logout",
+        `${API_BASE_URL}/api/v1/users/logout`,
         {},
         { withCredentials: true }
       );

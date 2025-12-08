@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const API_BASE_URL = import.meta.env.Backend_URL;
+
 const CreateTask = () => {
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
@@ -34,7 +36,9 @@ const CreateTask = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("/api/v1/users/all-users");
+        const response = await axios.get(
+          `${API_BASE_URL}/api/v1/users/all-users`
+        );
         setUsers(response.data.data);
       } catch (error) {
         console.error(error);
@@ -48,7 +52,7 @@ const CreateTask = () => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "/api/v1/tasks/task",
+        `${API_BASE_URL}/api/v1/tasks/task`,
         {
           title: enteredValue.title,
           description: enteredValue.description,

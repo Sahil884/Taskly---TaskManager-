@@ -5,6 +5,8 @@ import { authAction } from "../store/auth";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const API_BASE_URL = import.meta.env.Backend_URL;
+
 const EditProfile = () => {
   const user = useSelector((state) => state.auth.user);
 
@@ -27,7 +29,7 @@ const EditProfile = () => {
 
     try {
       const response = await axios.patch(
-        "/api/v1/users/update-account",
+        `${API_BASE_URL}/api/v1/users/update-account`,
         {
           fullName: eneteredValue.fullName,
           email: eneteredValue.email,

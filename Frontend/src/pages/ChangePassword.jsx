@@ -3,6 +3,8 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import { redirect, replace, useNavigate } from "react-router-dom";
 
+const API_BASE_URL = import.meta.env.Backend_URL;
+
 const ChangePassword = () => {
   const navigate = useNavigate();
   const [enteredValues, setEnteredValues] = useState({
@@ -25,7 +27,7 @@ const ChangePassword = () => {
     if (enteredValues.newPassword === enteredValues.confirmNewPassword) {
       try {
         const response = await axios.post(
-          "/api/v1/users/change-password",
+          `${API_BASE_URL}/api/v1/users/change-password`,
           {
             oldPassword: enteredValues.currentPassword,
             newPassword: enteredValues.newPassword,

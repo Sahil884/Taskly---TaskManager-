@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+const API_BASE_URL = import.meta.env.Backend_URL;
+
 const Edit_Task = ({ onClose, taskId, refreshTask }) => {
   const [formData, setFormData] = useState({
     title: "",
@@ -17,7 +19,9 @@ const Edit_Task = ({ onClose, taskId, refreshTask }) => {
   useEffect(() => {
     const fetchTask = async () => {
       try {
-        const response = await axios.get(`/api/v1/tasks/${taskId}/task`);
+        const response = await axios.get(
+          `${API_BASE_URL}/api/v1/tasks/${taskId}/task`
+        );
         const task = response.data.data;
 
         setFormData({

@@ -8,6 +8,8 @@ import { ApiError } from "../../../Backend/src/utils/ApiError";
 import TaskCard from "../components/TaskCard";
 import Edit_Task from "./Edit_Task";
 
+const API_BASE_URL = import.meta.env.Backend_URL;
+
 const Dashboard = () => {
   const currentUser = useSelector((state) => state.auth.user);
   const firstName = currentUser.fullName.split(" ")[0];
@@ -58,8 +60,8 @@ const Dashboard = () => {
     try {
       const endpoint =
         currentOrAssigned === "assigned"
-          ? "/api/v1/tasks/assignedTask"
-          : "/api/v1/tasks/task";
+          ? `${API_BASE_URL}/api/v1/tasks/assignedTask`
+          : `${API_BASE_URL}/api/v1/tasks/task`;
 
       const response = await axios.get(endpoint);
       setTasks(response.data.data);
@@ -84,7 +86,9 @@ const Dashboard = () => {
 
   const deleteTask = asyncHandler(async (id) => {
     try {
-      const deleted = await axios.delete(`/api/v1/tasks/${id}/task`);
+      const deleted = await axios.delete(
+        `${API_BASE_URL}/api/v1/tasks/${id}/task`
+      );
 
       if (!deleted) {
         throw new ApiError(400, "Task Can't be deleted, something went wrong!");
@@ -92,8 +96,8 @@ const Dashboard = () => {
 
       const endpoint =
         currentOrAssigned === "assigned"
-          ? "/api/v1/tasks/assignedTask"
-          : "/api/v1/tasks/task";
+          ? `${API_BASE_URL}/api/v1/tasks/assignedTask`
+          : `${API_BASE_URL}/api/v1/tasks/task`;
 
       const response = await axios.get(endpoint);
       setTasks(response.data.data);
