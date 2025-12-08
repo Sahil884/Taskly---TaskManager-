@@ -1,0 +1,201 @@
+const TaskCard = ({ task, onDelete, onEdit, showAssignedBy }) => {
+  return (
+    <div
+      key={task._id}
+      className={`bg-white rounded-xl shadow-sm p-6 border-l-4 ${
+        task.status === "pending"
+          ? "border-red-500"
+          : task.status === "in-progress"
+          ? "border-yellow-500"
+          : "border-green-500"
+      } hover:shadow-lg transition-all duration-300`}
+    >
+      <div className="flex items-start justify-between">
+        {/* Left side */}
+        <div className="flex items-start space-x-4 flex-1">
+          {/* Status Icon */}
+          <button className="mt-1 hover:scale-110 transition">
+            {task?.status === "pending" ? (
+              <svg
+                className="w-7 h-7 text-gray-400 hover:text-indigo-600 transition"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <circle cx="12" cy="12" r="10" strokeWidth="2"></circle>
+              </svg>
+            ) : task?.status === "in-progress" ? (
+              <svg
+                className="w-7 h-7 text-yellow-500"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <circle cx="12" cy="12" r="10" strokeWidth="2"></circle>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M12 6v6l4 2"
+                ></path>
+              </svg>
+            ) : (
+              <svg
+                className="w-7 h-7 text-green-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            )}
+          </button>
+
+          {/* Task Content */}
+          <div className="flex-1">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              {task?.title}
+            </h3>
+            <p className="text-gray-600 text-sm mb-3">{task?.description}</p>
+
+            {/* Tags */}
+            <div className="flex items-center space-x-3 flex-wrap gap-2">
+              {/* Status */}
+              <span
+                className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                  task?.status === "pending"
+                    ? "bg-gray-100 border-gray-300 text-gray-700"
+                    : task?.status === "in-progress"
+                    ? "bg-yellow-100 border-yellow-300 text-yellow-700"
+                    : "bg-green-100 border-green-300 text-green-700"
+                } border`}
+              >
+                {task?.status.charAt(0).toUpperCase() + task?.status.slice(1)}
+              </span>
+
+              {/* Priority */}
+              <span
+                className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                  task?.priority === "high"
+                    ? "bg-red-100 text-red-700 border-red-300"
+                    : task?.priority === "medium"
+                    ? "bg-blue-100 text-blue-700 border-blue-300"
+                    : "bg-green-100 text-green-700 border-green-300"
+                } border`}
+              >
+                {task?.priority.charAt(0).toUpperCase() +
+                  task?.priority.slice(1)}{" "}
+                Priority
+              </span>
+
+              {/* Due Date */}
+              <span className="text-xs text-gray-500 flex items-center">
+                <svg
+                  className="w-4 h-4 mr-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  ></path>
+                </svg>
+                Complete by:{" "}
+                {new Date(task?.dueDate).toLocaleDateString("en-US")}
+              </span>
+
+              {/* Assigned To / Assigned By */}
+              {showAssignedBy
+                ? task?.owner && (
+                    <span className="text-xs text-gray-500 flex items-center">
+                      <svg
+                        className="w-4 h-4 mr-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                        ></path>
+                      </svg>
+                      Assigned by: {task?.owner?.fullName}
+                    </span>
+                  )
+                : task?.assignedTo && (
+                    <span className="text-xs text-gray-500 flex items-center">
+                      <svg
+                        className="w-4 h-4 mr-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                        ></path>
+                      </svg>
+                      Assigned to: {task?.assignedTo?.fullName}
+                    </span>
+                  )}
+            </div>
+          </div>
+        </div>
+
+        {/* Right side actions */}
+        <div className="flex items-center space-x-2">
+          <button
+            onClick={onEdit}
+            className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+              ></path>
+            </svg>
+          </button>
+          <button
+            onClick={() => onDelete?.(task._id)}
+            className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default TaskCard;
