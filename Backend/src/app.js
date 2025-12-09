@@ -5,10 +5,12 @@ import { ApiError } from "./utils/ApiError.js"; // Import your error class
 
 const app = express();
 
-const allowedOrigins = [
-  "https://taskly-task-manager-icrv.vercel.app", // Your client URL
-  "https://taskly-task-manager.vercel.app", // If the client could also be here
-];
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(",")
+  : [
+      "https://taskly-task-manager-icrv.vercel.app",
+      "https://taskly-task-manager.vercel.app",
+    ];
 
 const corsOptions = {
   origin: function (origin, callback) {
