@@ -41,7 +41,7 @@ app.use(
 // app.options("*", cors(corsOptions));
 
 app.options(
-  "*",
+  "/*",
   cors({
     origin: "https://taskly-task-manager-icrv.vercel.app",
     credentials: true,
