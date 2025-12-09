@@ -31,7 +31,14 @@ const app = express();
 // };
 
 // Apply CORS to all routes
-app.use(cors({ origin: "https://taskly-task-manager-icrv.vercel.app" }));
+app.use(
+  cors({
+    origin: "https://taskly-task-manager-icrv.vercel.app",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: ["Content-Type", "Authorization", "X-Custom-Header"],
+    credentials: true,
+  })
+);
 
 // ✅ Handle preflight requests explicitly
 // app.options("*", cors(corsOptions));
