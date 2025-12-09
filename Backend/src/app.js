@@ -2,6 +2,9 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import { ApiError } from "./utils/ApiError.js"; // Import your error class
+import dotenv from "dotenv";
+
+dotenv.config({ path: "./.env" });
 
 const app = express();
 
