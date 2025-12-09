@@ -1,4 +1,4 @@
-import { Link, replace } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import UserAvatar from "../components/UserAvatar";
 import { getInitials } from "../utils";

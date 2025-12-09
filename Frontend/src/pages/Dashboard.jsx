@@ -3,8 +3,7 @@ import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
-import { asyncHandler } from "../../../Backend/src/utils/asyncHandler";
-import { ApiError } from "../../../Backend/src/utils/ApiError";
+
 import TaskCard from "../components/TaskCard";
 import Edit_Task from "./Edit_Task";
 
@@ -84,14 +83,14 @@ const Dashboard = () => {
     };
   }, [searchQuery]);
 
-  const deleteTask = asyncHandler(async (id) => {
+  const deleteTask = async (id) => {
     try {
       const deleted = await axios.delete(
         `${API_BASE_URL}/api/v1/tasks/${id}/task`
       );
 
       if (!deleted) {
-        throw new ApiError(400, "Task Can't be deleted, something went wrong!");
+        console.error(400, "Task Can't be deleted, something went wrong!");
       }
 
       const endpoint =
@@ -106,7 +105,7 @@ const Dashboard = () => {
     } catch (error) {
       console.error("You are not allowed to delete this task.", error);
     }
-  });
+  };
 
   return (
     <>

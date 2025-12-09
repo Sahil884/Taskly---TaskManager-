@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
-import { redirect, replace, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const API_BASE_URL = import.meta.env.VITE_Backend_URL;
 

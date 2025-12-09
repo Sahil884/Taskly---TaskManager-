@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import { ApiError } from "./utils/ApiError.js"; // Import your error class
 
 const app = express();
 
@@ -41,5 +42,27 @@ import taskRouter from "./routes/task.routes.js";
 // routes declaration
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/tasks", taskRouter);
+
+// --- In your app.js, AFTER all routes are declared ---
+
+app.use((err, req, res, next) => {
+  // Check if the error is a custom ApiError
+  const isApiError = err instanceof ApiError;
+
+  // Use the status code from ApiError, default to 500
+  const statusCode = isApiError ? err.statusCode : err.status || 500;
+
+  // Use the message from ApiError, default to a generic message
+  const message = isApiError ? err.message : "Internal Server Error";
+
+  // Ensure all response methods (like status/json) are used
+  return res.status(statusCode).json({
+    success: false,
+    message: message,
+    errors: isApiError ? err.errors : [],
+    // Optionally, include stack trace for debugging (remove in production)
+    // stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
+  });
+});
 
 export default app;
