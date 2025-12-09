@@ -62,7 +62,13 @@ const Dashboard = () => {
           ? `${API_BASE_URL}/api/v1/tasks/assignedTask`
           : `${API_BASE_URL}/api/v1/tasks/task`;
 
-      const response = await axios.get(endpoint);
+      const response = await axios.get(
+        endpoint,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
       setTasks(response.data.data);
     } catch (error) {
       console.error(error);
@@ -86,7 +92,9 @@ const Dashboard = () => {
   const deleteTask = async (id) => {
     try {
       const deleted = await axios.delete(
-        `${API_BASE_URL}/api/v1/tasks/${id}/task`
+        `${API_BASE_URL}/api/v1/tasks/${id}/task`,
+        {},
+        { withCredentials: true }
       );
 
       if (!deleted) {
@@ -98,7 +106,13 @@ const Dashboard = () => {
           ? `${API_BASE_URL}/api/v1/tasks/assignedTask`
           : `${API_BASE_URL}/api/v1/tasks/task`;
 
-      const response = await axios.get(endpoint);
+      const response = await axios.get(
+        endpoint,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
       setTasks(response.data.data);
 
       console.log("task deleted successfully ", deleted);

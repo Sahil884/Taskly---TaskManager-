@@ -20,7 +20,9 @@ const Edit_Task = ({ onClose, taskId, refreshTask }) => {
     const fetchTask = async () => {
       try {
         const response = await axios.get(
-          `${API_BASE_URL}/api/v1/tasks/${taskId}/task`
+          `${API_BASE_URL}/api/v1/tasks/${taskId}/task`,
+          {},
+          { withCredentials: true }
         );
         const task = response.data.data;
 
@@ -44,7 +46,13 @@ const Edit_Task = ({ onClose, taskId, refreshTask }) => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("/api/v1/users/all-users");
+        const response = await axios.get(
+          "/api/v1/users/all-users",
+          {},
+          {
+            withCredentials: true,
+          }
+        );
         setUsers(response.data.data);
       } catch (error) {
         console.error(error);
@@ -59,7 +67,8 @@ const Edit_Task = ({ onClose, taskId, refreshTask }) => {
     try {
       const response = await axios.post(
         `/api/v1/tasks/${taskId}/task`,
-        formData
+        formData,
+        { withCredentials: true }
       );
       refreshTask();
 
