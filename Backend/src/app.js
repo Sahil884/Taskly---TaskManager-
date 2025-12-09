@@ -27,6 +27,7 @@ const corsOptions = {
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Include all methods your API uses
   credentials: true, // If you need to send cookies/auth headers
   optionsSuccessStatus: 204,
+  allowedOrigins: allowedOrigins,
 };
 
 // Apply CORS to all routes
