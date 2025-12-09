@@ -5,22 +5,25 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 const allowedOrigins = [
-  "http://localhost:5173", // dev
-  "https://taskly-task-manager-icrv.vercel.app", // production frontend
+  "https://taskly-task-manager-icrv.vercel.app", // Your client URL
+  "https://taskly-task-manager.vercel.app", // If the client could also be here
 ];
 
 const corsOptions = {
   origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Include all methods your API uses
+  credentials: true, // If you need to send cookies/auth headers
+  optionsSuccessStatus: 204,
 };
 
-// ✅ Apply CORS globally
+// Apply CORS to all routes
 app.use(cors(corsOptions));
 
 // ✅ Handle preflight requests explicitly
