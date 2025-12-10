@@ -48,7 +48,7 @@ const Edit_Task = ({ onClose, taskId, refreshTask }) => {
         const response = await axios.get("/api/v1/users/all-users", {
           withCredentials: true,
         });
-        setUsers(response.data.data);
+        setUsers(response.data?.data || []);
       } catch (error) {
         console.error(error);
       }
@@ -208,11 +208,12 @@ const Edit_Task = ({ onClose, taskId, refreshTask }) => {
                     </option>
                   )}
 
-                {users.map((user) => (
-                  <option key={user._id} value={user._id}>
-                    👤{user.fullName} ({user.username})
-                  </option>
-                ))}
+                {Array.isArray(users) &&
+                  users.map((user) => (
+                    <option key={user._id} value={user._id}>
+                      👤{user.fullName} ({user.username})
+                    </option>
+                  ))}
               </select>
             </div>
 
