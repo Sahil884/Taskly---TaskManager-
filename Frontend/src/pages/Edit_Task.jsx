@@ -208,7 +208,7 @@ const Edit_Task = ({ onClose, taskId, refreshTask }) => {
                     </option>
                   )}
 
-                {Array.isArray(users) &&
+                {users &&
                   users.map((user) => (
                     <option key={user._id} value={user._id}>
                       👤{user.fullName} ({user.username})
