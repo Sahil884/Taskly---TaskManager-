@@ -44,7 +44,6 @@ Taskly is a full‑stack task management application built with **React (Vite)**
 - Node.js + Express
 - MongoDB + Mongoose
 - JWT Authentication
-- Multer for file handling
 
 **Deployment**
 - Vercel (Frontend + Backend)
