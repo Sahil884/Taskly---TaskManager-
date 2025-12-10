@@ -67,10 +67,14 @@ const Signup = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/v1/users/login`, {
-        email: enteredValue.email,
-        password: enteredValue.password,
-      });
+      const response = await axios.post(
+        `${API_BASE_URL}/api/v1/users/login`,
+        {
+          email: enteredValue.email,
+          password: enteredValue.password,
+        },
+        { withCredentials: true }
+      );
 
       dispatch(authAction.login(response.data.data.user));
 
