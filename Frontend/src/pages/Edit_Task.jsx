@@ -61,7 +61,7 @@ const Edit_Task = ({ onClose, taskId, refreshTask }) => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `/api/v1/tasks/${taskId}/task`,
+        `${API_BASE_URL}/api/v1/tasks/${taskId}/task`,
         formData,
         { withCredentials: true }
       );
