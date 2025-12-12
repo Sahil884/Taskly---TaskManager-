@@ -6,6 +6,7 @@ import { useState } from "react";
 import AccountDropdown from "./Account_dropdown";
 import { getInitials } from "../utils";
 import { authAction } from "../store/auth";
+import Spinner from "./Spinner";
 
 const API_BASE_URL = import.meta.env.VITE_Backend_URL;
 
@@ -14,6 +15,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.user);
   const [clicked, setClicked] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   function handleClick() {
     setClicked((prev) => !prev);
@@ -24,6 +26,7 @@ const Navbar = () => {
     : "";
 
   const logoutUser = async () => {
+    setLoading(true);
     try {
       const response = await axios.post(
         `${API_BASE_URL}/api/v1/users/logout`,
@@ -36,6 +39,8 @@ const Navbar = () => {
       navigate("/", { replace: true });
     } catch (error) {
       console.error("something went wrong!", error);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -141,23 +146,32 @@ const Navbar = () => {
               <button
                 className="flex items-center space-x-2 px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition"
                 onClick={logoutUser}
+                disabled={loading}
               >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                  ></path>
-                </svg>
-                <span className="hidden md:inline text-sm font-medium">
-                  Logout
-                </span>
+                <div className="flex items-center justify-center min-w-20">
+                  {loading ? (
+                    <Spinner />
+                  ) : (
+                    <>
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                        ></path>
+                      </svg>
+                      <span className="hidden md:inline text-sm font-medium">
+                        Logout
+                      </span>
+                    </>
+                  )}
+                </div>
               </button>
             </div>
           </div>
