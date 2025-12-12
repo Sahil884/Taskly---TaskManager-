@@ -12,7 +12,7 @@ const Signup = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const isLogin = searchParams.get("mode") === "login";
-  const isSubmitting = navigate.state === "submitting";
+  const [loading, setLoading] = useState(false);
 
   const [errMessage, setErrMessage] = useState(null);
   const [enteredValue, setEnteredValue] = useState({
@@ -31,7 +31,7 @@ const Signup = () => {
 
   const registerUser = async (event) => {
     event.preventDefault();
-
+    setLoading(true);
     try {
       const response = await axios.post(
         `${API_BASE_URL}/api/v1/users/register`,
@@ -60,11 +60,14 @@ const Signup = () => {
         setErrMessage(null);
         console.error("Error submitting data", error.data);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
   const loginUser = async (event) => {
     event.preventDefault();
+    setLoading(true);
 
     try {
       const response = await axios.post(
@@ -81,6 +84,8 @@ const Signup = () => {
       navigate("/dashboard");
     } catch (error) {
       console.error("Error submitting data", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -179,10 +184,10 @@ const Signup = () => {
 
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={loading}
                   className="w-full bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 transition transform hover:scale-[1.02]"
                 >
-                  {isSubmitting ? "Signing In" : "Sign In"}
+                  {loading ? "Signing In" : "Sign In"}
                 </button>
               </form>
 
@@ -322,9 +327,10 @@ const Signup = () => {
 
                 <button
                   type="submit"
+                  disabled={loading}
                   className="w-full bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 transition transform hover:scale-[1.02]"
                 >
-                  Create Account
+                  {loading ? "Creating" : "Create Account"}
                 </button>
               </form>
 
